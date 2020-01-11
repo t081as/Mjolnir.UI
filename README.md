@@ -5,7 +5,7 @@
 *One of the most fearsome and powerful tools in existence, capable of leveling mountains*
 
 ---
-This is a common library for .NET Windows Forms and Windows Presentation Foundation applications
+This is a common library for .NET Windows Forms and Windows Presentation Foundation applications.
 
 ## Installation
 
