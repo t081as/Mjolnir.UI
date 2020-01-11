@@ -1,0 +1,26 @@
+stages:
+    - test
+    - deploy
+
+release:
+    stage: deploy
+    only:
+        - tags
+    artifacts:
+        name: "${CI_PROJECT_NAME}-${CI_COMMIT_TAG}"
+        paths:
+          - ./**/*.nupkg
+    script:
+        - ./build.ps1 --configuration Release --buildnumber $CI_PIPELINE_IID --target Push --key $NUGET_API_KEY
+
+debug:
+    stage: test
+    script:
+        - ./build.ps1
+    coverage: /Line coverage[\s\S].+%/
+    artifacts:
+        paths:
+        - output/coverage
+        reports:
+            junit:
+                - './tests/**/TestResults/TestResults.xml'
