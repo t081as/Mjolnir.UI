@@ -82,6 +82,8 @@ namespace Mjolnir.Windows.Input
             {
                 this.isExecuting = false;
             }
+
+            OnCanExecuteChanged();
         }
     }
 }
