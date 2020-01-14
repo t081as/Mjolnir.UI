@@ -73,17 +73,20 @@ namespace Mjolnir.Windows.Input
         /// <inheritdoc/>
         public async override Task ExecuteAsync(object parameter)
         {
-            try
+            if (this.CanExecute(parameter))
             {
-                this.isExecuting = true;
-                await this.execute(parameter).ConfigureAwait(false);
-            }
-            finally
-            {
-                this.isExecuting = false;
-            }
+                try
+                {
+                    this.isExecuting = true;
+                    await this.execute(parameter).ConfigureAwait(false);
+                }
+                finally
+                {
+                    this.isExecuting = false;
+                }
 
-            OnCanExecuteChanged();
+                OnCanExecuteChanged();
+            }
         }
     }
 }
