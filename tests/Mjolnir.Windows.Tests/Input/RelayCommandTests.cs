@@ -32,7 +32,6 @@ namespace Mjolnir.Windows.Tests.Input
     /// Contains unit tests for the <see cref="RelayCommand"/> class.
     /// </summary>
     [TestClass]
-
     public class RelayCommandTests
     {
         /// <summary>

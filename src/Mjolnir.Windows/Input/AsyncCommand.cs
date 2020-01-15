@@ -36,12 +36,12 @@ namespace Mjolnir.Windows.Input
         /// <summary>
         /// The method that determines whether the command can execute in its current state.
         /// </summary>
-        private Func<object, Task> execute;
+        private Func<object?, Task> execute;
 
         /// <summary>
         /// The method to be called when the command is invoked.
         /// </summary>
-        private Func<object, bool>? canExecute;
+        private Func<object?, bool>? canExecute;
 
         /// <summary>
         /// A flag indicating whether the method is currently executed.
@@ -55,8 +55,8 @@ namespace Mjolnir.Windows.Input
         /// <param name="canExecute">A flag indicating whether the method is currently executed.</param>
         /// <param name="handler">The handler taking care of exceptions occuring during the asynchronous operation.</param>
         public AsyncCommand(
-            Func<object, Task> execute,
-            Func<object, bool>? canExecute = null,
+            Func<object?, Task> execute,
+            Func<object?, bool>? canExecute = null,
             IExceptionHandler? handler = null)
             : base(handler)
         {
@@ -65,13 +65,13 @@ namespace Mjolnir.Windows.Input
         }
 
         /// <inheritdoc/>
-        public override bool CanExecute(object parameter)
+        public override bool CanExecute(object? parameter)
         {
             return !this.isExecuting && (this.canExecute?.Invoke(parameter) ?? true);
         }
 
         /// <inheritdoc/>
-        public async override Task ExecuteAsync(object parameter)
+        public async override Task ExecuteAsync(object? parameter)
         {
             if (this.CanExecute(parameter))
             {

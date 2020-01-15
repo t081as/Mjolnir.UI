@@ -24,23 +24,43 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 
 using System.Threading.Tasks;
-using System.Windows.Input;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Mjolnir.Windows.Input;
 
-namespace Mjolnir.Windows.Input
+namespace Mjolnir.Windows.Tests.Input
 {
     /// <summary>
-    /// Describes objects able to act as an asynchronous command.
+    /// Contains unit tests for the <see cref="AsyncCommand"/> class.
     /// </summary>
-    public interface IAsyncCommand : ICommand
+    [TestClass]
+    public class AsyncCommandTests
     {
         /// <summary>
-        /// Defines the method to be called when the command is invoked.
+        /// Indicates the success of the asynchronous call.
         /// </summary>
-        /// <param name="parameter">
-        /// The data used by the command. If the command does not require
-        /// data to be passed, this object can be set to <c>null</c>.
-        /// </param>
+        private bool success = false;
+
+        /// <summary>
+        /// Checks the <see cref="RelayCommand.Execute(object)"/> method.
+        /// </summary>
+        [TestMethod]
+        public void ExecuteTest()
+        {
+            this.success = false;
+            var command = new AsyncCommand((parameter) => this.SetSuccess(), null, null);
+            command.Execute(null);
+
+            Assert.IsTrue(this.success);
+        }
+
+        /// <summary>
+        /// An asynchronous method setting the <see cref="success"/> to <c>true</c>.
+        /// </summary>
         /// <returns>A <see cref="Task"/> describing the asynchronous operation.</returns>
-        Task ExecuteAsync(object? parameter);
+        private async Task SetSuccess()
+        {
+            this.success = true;
+            await Task.Delay(100).ConfigureAwait(false);
+        }
     }
 }

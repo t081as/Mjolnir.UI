@@ -68,10 +68,10 @@ namespace Mjolnir.Windows.Input
         /// <returns>
         /// <c>true</c> if this command can be executed; otherwise, <c>false</c>.
         /// </returns>
-        public abstract bool CanExecute(object parameter);
+        public abstract bool CanExecute(object? parameter);
 
         /// <inheritdoc/>
-        public abstract Task ExecuteAsync(object parameter);
+        public abstract Task ExecuteAsync(object? parameter);
 
         /// <summary>
         /// Defines the method to be called when the command is invoked.
@@ -79,7 +79,7 @@ namespace Mjolnir.Windows.Input
         /// <param name="parameter">
         /// The data used by the command. If the command does not require data to be passed, this object can be set to <c>null</c>.
         /// </param>
-        public void Execute(object parameter)
+        public void Execute(object? parameter)
         {
             this.ExecuteAsync(parameter).Invoke(this.handler);
         }
