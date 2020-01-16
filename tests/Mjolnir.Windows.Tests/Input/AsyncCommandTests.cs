@@ -54,6 +54,25 @@ namespace Mjolnir.Windows.Tests.Input
         }
 
         /// <summary>
+        /// Checks the <see cref="AsyncCommand.CanExecute(object)"/> method.
+        /// </summary>
+        [TestMethod]
+        public void CanExecuteTest()
+        {
+            var command1 = new AsyncCommand((parameter) => this.SetSuccess(), (parameter) => true);
+            Assert.IsTrue(command1.CanExecute(null));
+
+            var command2 = new AsyncCommand((parameter) => this.SetSuccess());
+            Assert.IsTrue(command2.CanExecute(null));
+
+            var command3 = new AsyncCommand((parameter) => this.SetSuccess(), null);
+            Assert.IsTrue(command3.CanExecute(null));
+
+            var command4 = new AsyncCommand((parameter) => this.SetSuccess(), (parameter) => false);
+            Assert.IsFalse(command4.CanExecute(null));
+        }
+
+        /// <summary>
         /// An asynchronous method setting the <see cref="success"/> to <c>true</c>.
         /// </summary>
         /// <returns>A <see cref="Task"/> describing the asynchronous operation.</returns>
