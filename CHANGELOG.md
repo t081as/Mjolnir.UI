@@ -1,4 +1,4 @@
-## [Unreleased] / YYYY-MM-DD
+## [0.6.0] / 2020-01-19
 - Added MVVM helper classes
 - Added AsyncCommand
 - Added RelayCommand
