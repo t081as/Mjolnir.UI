@@ -1,8 +1,16 @@
+.shared_windows_runners:
+    tags:
+    - shared-windows
+    - windows
+    - windows-1809
+
 stages:
     - test
     - deploy
 
 release:
+    extends:
+        - .shared_windows_runners
     stage: deploy
     only:
         - tags
@@ -14,6 +22,8 @@ release:
         - ./build.ps1 --configuration Release --buildnumber $CI_PIPELINE_IID --target Push --key $NUGET_API_KEY
 
 debug:
+    extends:
+        - .shared_windows_runners
     stage: test
     script:
         - ./build.ps1
